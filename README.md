@@ -36,3 +36,18 @@ or passed as command-line arguments from the console.
 Example:
   --Rename:MyApp --Remove:all --Upgrade:"C:\path to\old app"
 ```
+
+## Mac OS
+
+A separate UtilMacOS file is available for use on Macs with Apple silicone.
+To make this work you must open a console into the folder where the file
+exists and issue the following command:
+
+```chmod +x UtilMacOS```
+
+Then, to run the application issue the following command:
+
+```./UtilMacOS```
+
+Both the Util.exe and UtilMacOS applications are framework-dependent, so
+you must have .NET 10 installed to run them.
