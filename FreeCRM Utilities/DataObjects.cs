@@ -1,4 +1,4 @@
-﻿namespace FreeCRM_Utilities;
+﻿namespace Util;
 
 public class Enums
 {

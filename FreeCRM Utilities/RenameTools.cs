@@ -1,4 +1,4 @@
-﻿namespace FreeCRM_Utilities;
+﻿namespace Util;
 
 public static class RenameTools
 {
@@ -20,7 +20,8 @@ public static class RenameTools
         }
     }
 
-    public static void RenameAllFileContents() {
+    public static void RenameAllFileContents()
+    {
         string[] files = Directory.GetFiles(_filePath, "*.*", SearchOption.AllDirectories);
 
         List<string> updateExtensions = new List<string> { ".cs", ".csproj", ".txt", ".json", ".cshtml", ".ts", ".razor", ".plugin" };
@@ -56,7 +57,22 @@ public static class RenameTools
         }
     }
 
-    public static void RenameFoldersAndSolutionFiles() {
+    public static void RenameFile(string currentName, string newName)
+    {
+        if (File.Exists(Path.Combine(_filePath, currentName))) {
+            File.Move(Path.Combine(_filePath, currentName), Path.Combine(_filePath, newName));
+        }
+    }
+
+    public static void RenameFolder(string currentFolder, string newFolder)
+    {
+        if (Directory.Exists(Path.Combine(_filePath, currentFolder))) {
+            Directory.Move(Path.Combine(_filePath, currentFolder), Path.Combine(_filePath, newFolder));
+        }
+    }
+
+    public static void RenameFoldersAndSolutionFiles()
+    {
         RenameFile("CRM.sln", _newAppName + ".sln");
         RenameFile("CRM.slnx", _newAppName + ".slnx");
 
@@ -75,27 +91,30 @@ public static class RenameTools
         RenameFile(_newAppName + ".Plugins/CRM.Plugins.csproj", _newAppName + ".Plugins/" + _newAppName + ".Plugins.csproj");
     }
 
-    public static void RenameFile(string currentName, string newName) {
-        if (File.Exists(Path.Combine(_filePath, currentName))) {
-            File.Move(Path.Combine(_filePath, currentName), Path.Combine(_filePath, newName));
-        }
-    }
-
-    public static void RenameFolder(string currentFolder, string newFolder) {
-        if (Directory.Exists(Path.Combine(_filePath, currentFolder))) {
-            Directory.Move(Path.Combine(_filePath, currentFolder), Path.Combine(_filePath, newFolder));
-        }
-    }
-
-    public static void SetAppName(string newAppName) {
+    public static void SetAppName(string newAppName)
+    {
         _newAppName = newAppName;
     }
 
-    public static void SetFilePath(string filePath) {
+    public static void SetFilePath(string filePath)
+    {
         _filePath = filePath;
     }
 
-    public static void UpdateSolutionFile() {
+    public static void UpdateSecretsGuid()
+    {
+        string file = Path.Combine(_filePath, _newAppName, _newAppName + ".csproj");
+        if (File.Exists(file)) {
+            string contents = File.ReadAllText(file);
+
+            contents = contents.Replace("<UserSecretsId>c3a4acfd-bf26-4267-98c7-6746a2b80f10</UserSecretsId>", "<UserSecretsId>" + Guid.NewGuid().ToString() + "</UserSecretsId>");
+
+            File.WriteAllText(file, contents);
+        }
+    }
+
+    public static void UpdateSolutionFile()
+    {
         string fileSLN = Path.Combine(_filePath, _newAppName + ".sln");
         if (File.Exists(fileSLN)) {
             string sln = File.ReadAllText(fileSLN);
@@ -128,17 +147,6 @@ public static class RenameTools
             sln = sln.Replace("CRM", _newAppName);
 
             File.WriteAllText(fileSLNX, sln);
-        }
-    }
-
-    public static void UpdateSecretsGuid() {
-        string file = Path.Combine(_filePath, _newAppName, _newAppName + ".csproj");
-        if (File.Exists(file)) {
-            string contents = File.ReadAllText(file);
-
-            contents = contents.Replace("<UserSecretsId>c3a4acfd-bf26-4267-98c7-6746a2b80f10</UserSecretsId>", "<UserSecretsId>" + Guid.NewGuid().ToString() + "</UserSecretsId>");
-
-            File.WriteAllText(file, contents);
         }
     }
 }

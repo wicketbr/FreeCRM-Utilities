@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-
-namespace FreeCRM_Utilities;
+﻿namespace Util;
 
 public static class RemoveModulesTools
 {
@@ -186,108 +181,6 @@ public static class RemoveModulesTools
         }
     }
 
-    public static void DrawSplashScreen() {
-        SplashScreen.DrawSplashScreen(new SplashScreen.Splash {
-            Title = "Remove Modules from FreeCRM",
-            Text = new List<string> {
-                    "© 2026 Bradley R. Wickett",
-                    "",
-                    "This utility will remove an individual module from FreeCRM.",
-                    "After removing a module you will need to open the app in Visual Studio and",
-                    "perform a build and resolve any remaining errors.",
-                    "",
-                    "The following command-line arguments are supported:",
-                    "  remove:all",
-                    "  remove:About, Appointments, etc.",
-                    "  keep:EmailTemplates, Invoices, etc.",
-                },
-            Border = SplashScreen.SplashBorder.Single,
-            BackgroundColor = System.ConsoleColor.Blue,
-            Font = AsciiArt.Font.FutureSmooth,
-            ForegroundColor = System.ConsoleColor.White,
-            Padding = new SplashScreen.SplashPadding {
-                Bottom = 0,
-                Left = 1,
-                Right = 1,
-                Top = 0,
-            }
-        });
-        Console.WriteLine("");
-    }
-
-    public static void HomeScreen() {
-        var modules = Modules;
-
-        if (modules.Any()) {
-            if (modules.Count > 1) {
-                Utils.ConsoleLog(" A - REMOVE ALL MODULES");
-            }
-
-            foreach (var module in modules.Index()) {
-                Utils.ConsoleLog((module.Index < 9 ? " " : "") + (module.Index + 1).ToString() + " - " + module.Item.Name);
-            }
-            Utils.ConsoleLog(" X - Exit");
-
-            Utils.ConsoleLog();
-            Utils.ConsoleLog("Select a Module to Remove:");
-
-            var readLine = Console.ReadLine();
-
-            if (readLine == "x" || readLine == "X") {
-                return;
-            }
-
-            if (modules.Count > 1 && (readLine == "a" || readLine == "A")) {
-                Utils.ConsoleLog("Removing All Modules...");
-
-                foreach (var module in modules) {
-                    var results = RemoveModulesTools.RemoveModule(module.Name);
-                    if (results.Any()) {
-                        foreach (var line in results) {
-                            Utils.ConsoleLog(line);
-                        }
-                    }
-                }
-                return;
-            }
-
-            int input = 0;
-            try {
-                input = Convert.ToInt32(readLine);
-            } catch { }
-
-            var selectedItem = String.Empty;
-
-            if (input > 0 && input < modules.Count + 1) {
-                selectedItem = modules[input - 1].Name;
-            }
-
-            if (!String.IsNullOrWhiteSpace(selectedItem)) {
-                Console.Clear();
-
-                var results = RemoveModule(selectedItem);
-                if (results.Any()) {
-                    foreach (var item in results) {
-                        Utils.ConsoleLog(item);
-                    }
-                }
-
-                Utils.ConsoleLog();
-                Utils.ConsoleLog("Press any key to continue:");
-
-                var readKey = Console.ReadKey();
-
-                Console.Clear();
-
-                DrawSplashScreen();
-                HomeScreen();
-            }
-        } else {
-            Utils.ConsoleLog("There are no remaining optional modules to remove. Press any key to exit.");
-            var readLine = Console.ReadLine();
-        }
-    }
-
     public static List<Module> Modules {
         get {
             var output = new List<Module>();
@@ -316,14 +209,9 @@ public static class RemoveModulesTools
                     // If this item did not have any FileToRemove or FoldersToRemove
                     // then check if any app files contain {{ModuleItemStart:MODULE}} items.
                     if (!item.FilesToRemove.Any() && !item.FoldersToRemove.Any()) {
-                        var files = System.IO.Directory.GetFiles(_filePath, "*.*", SearchOption.AllDirectories);
-
-                        foreach (var file in files) {
-                            var contents = System.IO.File.ReadAllText(file);
-                            if (contents.Contains("{{ModuleItemStart:" + item.Name + "}}")) {
-                                include = true;
-                                break;
-                            }
+                        var sourceCode = SourceCode.GetAllSourceCode(_filePath);
+                        if (sourceCode.Contains("{{ModuleItemStart:" + item.Name + "}}")) {
+                            include = true;
                         }
                     }
                 }
@@ -337,7 +225,8 @@ public static class RemoveModulesTools
         }
     }
 
-    private static string RemoveExtraEmptyLines(string input) {
+    private static string RemoveExtraEmptyLines(string input)
+    {
         var output = new System.Text.StringBuilder();
 
         bool wasLastLineEmpty = false;
@@ -358,7 +247,8 @@ public static class RemoveModulesTools
         return output.ToString().Trim();
     }
 
-    public static List<string> RemoveModule(string module) {
+    public static List<string> RemoveModule(string module)
+    {
         var output = new List<string>();
 
         var item = AllModules.FirstOrDefault(x => x.Name.ToLower() == module.ToLower());
@@ -467,7 +357,8 @@ public static class RemoveModulesTools
         return output;
     }
 
-    public static void SetFilePath(string filePath) {
+    public static void SetFilePath(string filePath)
+    {
         _filePath = filePath;
     }
 }

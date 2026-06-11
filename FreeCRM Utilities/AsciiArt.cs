@@ -1,4 +1,4 @@
-﻿namespace FreeCRM_Utilities;
+﻿namespace Util;
 
 public static class AsciiArt
 {
@@ -480,11 +480,13 @@ public static class AsciiArt
         }
     }
 
-    public static void SetFont(Font font) {
+    public static void SetFont(Font font)
+    {
         _font = font;
     }
 
-    public static string TextToAsciiArt(string? text, string replaceMissingCharactersWith = "!") {
+    public static string TextToAsciiArt(string? text, string replaceMissingCharactersWith = "!")
+    {
         var output = new System.Text.StringBuilder();
 
         var lines = TextToAsciiArtLines(text, replaceMissingCharactersWith);
@@ -496,7 +498,8 @@ public static class AsciiArt
         return output.ToString();
     }
 
-    public static List<string> TextToAsciiArtLines(string? text, string replaceMissingCharactersWith = "") {
+    public static List<string> TextToAsciiArtLines(string? text, string replaceMissingCharactersWith = "")
+    {
         List<string> output = new List<string>();
 
         List<Letter> Letters = Letters_FutureSmooth;
@@ -555,7 +558,6 @@ public static class AsciiArt
 
         return output;
     }
-
 
     public class Letter
     {

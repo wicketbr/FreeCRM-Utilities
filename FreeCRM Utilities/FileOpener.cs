@@ -1,10 +1,11 @@
 ﻿using System.Diagnostics;
 
-namespace FreeCRM_Utilities;
+namespace Util;
 
 public static class FileOpener
 {
-    public static void OpenInBrowser(string path) {
+    public static void OpenInBrowser(string path)
+    {
         try {
             if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows)) {
                 // Windows needs UseShellExecute = true to find the default app handler

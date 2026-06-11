@@ -1,4 +1,4 @@
-﻿namespace FreeCRM_Utilities;
+﻿namespace Util;
 
 public static class SourceCode
 {
@@ -9,11 +9,8 @@ public static class SourceCode
         get { return _beginNote; }
     }
 
-    public static string EndNote {
-        get { return _endNote; }
-    }
-
-    public static List<string> CleanCodeList(List<string> code) {
+    public static List<string> CleanCodeList(List<string> code)
+    {
         List<string> output = new List<string>();
 
         if (code.Any()) {
@@ -31,172 +28,8 @@ public static class SourceCode
         return output;
     }
 
-    //public static ClassCode ConvertCodeToClassCode(List<string> code)
-    //{
-    //	ClassCode output = new ClassCode();
-
-    //	int currentLine = 0;
-
-    //	if (code.Any()) {
-    //		// First, see if this starts with comments.
-    //		if (code[0].Trim().StartsWith("//")) {
-    //			foreach(var line in code.Index()) {
-    //				currentLine = line.Index;
-
-    //				if (line.Item.Trim().StartsWith("//")) {
-    //					output.Comments.Add(line.Item);
-    //				} else {
-    //					break;
-    //				}
-    //			}
-    //		}
-
-    //		// Next, add lines to the IntroCode until we hit a line with a { character.
-    //		for (int i = currentLine; i < code.Count; i++) {
-    //			var line = code[i];
-
-    //			output.IntroCode.Add(line);
-
-    //			if (line.Contains("{")) {
-    //				currentLine = i + 1;
-    //				break;
-    //			}
-    //		}
-
-    //		// Next, find the first method.
-    //		int firstMethod = -1;
-
-    //		for (int i = currentLine; i < code.Count; i++) {
-    //			var line = code[i];
-
-    //			if (line.Trim().StartsWith("//")) {
-    //				// This is a comment, so keep going.
-    //			} else if (line.Contains("=")) {
-    //				// This is a local variable.
-    //			} else if (!String.IsNullOrWhiteSpace(line)) {
-    //				firstMethod = i;
-    //				break;
-    //			}
-    //		}
-
-    //		if (firstMethod > -1) {
-    //			// If there are properties add those first.
-    //			List<string> comments = new List<string>();
-    //			List<string> c = new List<string>();
-    //			int start = -1;
-
-    //			if (firstMethod > currentLine) {
-    //				for (int i = currentLine; i < firstMethod; i++) {
-    //					currentLine = i;
-    //					var line = code[i];
-
-    //					if (line.Trim().StartsWith("//")) {
-    //						comments.Add(line);
-    //					} else if (String.IsNullOrWhiteSpace(line)) {
-    //						// We hit an empty line, so add this item and clear values.
-    //						var cleanedCode = CleanCodeList(c);
-
-    //						output.Properties.Add(new ClassItem {
-    //							Comments = comments.ToList(),
-    //							Code = cleanedCode,
-    //							SortItem = SortItem(cleanedCode),
-    //							Start = start,
-    //							End = i - 1,
-    //						});
-
-    //						comments = new List<string>();
-    //						c = new List<string>();
-    //						start = -1;
-    //					} else {
-    //						c.Add(line);
-    //						start = i;
-    //					}
-    //				}
-
-    //				if (c.Any()) {
-    //					var cleanedCode = CleanCodeList(c);
-
-    //					output.Properties.Add(new ClassItem {
-    //						Comments = comments.ToList(),
-    //						Code = cleanedCode,
-    //						SortItem = SortItem(cleanedCode),
-    //						Start = start,
-    //						End = currentLine,
-    //					});
-    //				}
-    //			}
-
-    //			// Now add the remaining items.
-    //			comments = new List<string>();
-    //			c = new List<string>();
-    //			bool inMethod = false;
-    //			int brace = 0;
-    //			bool foundOpenBrace = false;
-    //			start = -1;
-
-    //			for (int i = currentLine; i < code.Count; i++) {
-    //				var line = code[i];
-
-    //				if (line.Trim().StartsWith("//")) {
-    //					comments.Add(line);
-    //				} else {
-    //					c.Add(line);
-
-    //					if(start == -1) {
-    //						start = i;
-    //					}
-
-    //					if (line.Contains("{")) {
-    //						brace += CountOfCharacterInString(line, "{");
-    //						if (!foundOpenBrace) {
-    //							foundOpenBrace = true;
-    //						}
-    //					}
-
-    //					if (line.Contains("}")) {
-    //						brace -= CountOfCharacterInString(line, "}");
-
-    //						if (brace < 1) {
-    //							var cleanedCode = CleanCodeList(c);
-
-    //							output.Methods.Add(new ClassItem{
-    //								Comments = comments.ToList(),
-    //								Code = cleanedCode,
-    //								SortItem = SortItem(cleanedCode),
-    //								Start = start,
-    //								End = i,
-    //							});
-
-    //							comments = new List<string>();
-    //							c = new List<string>();
-    //							start = -1;
-    //						}
-    //					}
-    //				}
-    //			}
-
-    //			if (c.Any()) {
-    //				if (c.Count == 1 && c[1].Trim() == "}") {
-    //					// Skip this
-    //				} else {
-    //					var cleanedCode = CleanCodeList(c);
-
-    //					output.Methods.Add(new ClassItem {
-    //						Comments = comments.ToList(),
-    //						Code = cleanedCode,
-    //						SortItem = SortItem(cleanedCode),
-    //						Start = start,
-    //						End = code.Count - 1,
-    //					});
-    //				}
-    //			}
-    //		}
-    //	}
-
-    //	return output;
-    //}
-
-    public static int CountOfCharacterInString(string? input, string character) {
+    public static int CountOfCharacterInString(string? input, string character)
+    {
         int output = 0;
 
         if (!String.IsNullOrWhiteSpace(input) && !String.IsNullOrWhiteSpace(character)) {
@@ -210,7 +43,15 @@ public static class SourceCode
         return output;
     }
 
-    public static List<LanguageItem> FindMissingLanguageItems(string pathToOldApp, string appPath, bool outputResults = true) {
+    public static string EndNote {
+        get { return _endNote; }
+    }
+
+    public static List<LanguageItem> FindMissingLanguageItems(
+        string pathToOldApp,
+        string appPath,
+        bool outputResults = true
+    ){
         List<LanguageItem> output = new List<LanguageItem>();
 
         var oldLanguageItems = SourceCode.GetLanguageItems(pathToOldApp);
@@ -234,7 +75,8 @@ public static class SourceCode
         return output;
     }
 
-    public static string FirstLinePadding(List<string> items) {
+    public static string FirstLinePadding(List<string> items)
+    {
         string output = String.Empty;
 
         if (items.Any()) {
@@ -252,7 +94,8 @@ public static class SourceCode
         return output;
     }
 
-    public static string GetAllSourceCode(string path, bool excludeLanguage = false) {
+    public static string GetAllSourceCode(string path, bool excludeLanguage = false)
+    {
         System.Text.StringBuilder output = new System.Text.StringBuilder();
 
         var lines = GetAllSourceCodeLines(path, excludeLanguage);
@@ -263,7 +106,8 @@ public static class SourceCode
         return output.ToString();
     }
 
-    public static List<string> GetAllSourceCodeLines(string path, bool excludeLanguage = false) {
+    public static List<string> GetAllSourceCodeLines(string path, bool excludeLanguage = false)
+    {
         List<string> output = new List<string>();
 
         string[] files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
@@ -317,7 +161,8 @@ public static class SourceCode
         return output;
     }
 
-    public static List<string> GetAtBlock(List<string> code) {
+    public static List<string> GetAtBlock(List<string> code)
+    {
         List<string> output = new List<string>();
 
         if (code.Any()) {
@@ -355,7 +200,8 @@ public static class SourceCode
         return output;
     }
 
-    public static List<string> GetAtCodeBlock(List<string> code) {
+    public static List<string> GetAtCodeBlock(List<string> code)
+    {
         List<string> output = new List<string>();
 
         if (code.Any()) {
@@ -393,7 +239,8 @@ public static class SourceCode
         return output;
     }
 
-    public static List<string> GetAttributesAboveLine(int line, List<string> source) {
+    public static List<string> GetAttributesAboveLine(int line, List<string> source)
+    {
         List<string> output = new List<string>();
 
         if (line > 0) {
@@ -423,7 +270,12 @@ public static class SourceCode
         return output;
     }
 
-    public static List<string> GetCodeBlock(string? identifier, List<string> source, bool includeComments = true, bool inverseOutput = false) {
+    public static List<string> GetCodeBlock(
+        string? identifier,
+        List<string> source,
+        bool includeComments = true,
+        bool inverseOutput = false
+    ){
         List<string> output = new List<string>();
 
         if (!String.IsNullOrWhiteSpace(identifier) && source.Any()) {
@@ -517,7 +369,8 @@ public static class SourceCode
         return output;
     }
 
-    public static List<string> GetCommentsAboveLine(int line, List<string> source) {
+    public static List<string> GetCommentsAboveLine(int line, List<string> source)
+    {
         List<string> output = new List<string>();
 
         if (line > 0) {
@@ -547,7 +400,8 @@ public static class SourceCode
         return output;
     }
 
-    public static List<string> GetInterface(string? identifier, List<string> source) {
+    public static List<string> GetInterface(string? identifier, List<string> source)
+    {
         List<string> output = new List<string>();
 
         if (!String.IsNullOrWhiteSpace(identifier) && source.Any()) {
@@ -580,7 +434,8 @@ public static class SourceCode
         return output;
     }
 
-    public static List<LanguageItem> GetLanguageItems(string path) {
+    public static List<LanguageItem> GetLanguageItems(string path)
+    {
         List<LanguageItem> output = new List<LanguageItem>();
 
         if (System.IO.Path.Exists(path)) {
@@ -621,7 +476,8 @@ public static class SourceCode
         return output;
     }
 
-    public static List<LanguageItem> GetLanguageItemsFromFile(string file, string identifier) {
+    public static List<LanguageItem> GetLanguageItemsFromFile(string file, string identifier)
+    {
         List<LanguageItem> output = new List<LanguageItem>();
 
         if (System.IO.File.Exists(file)) {
@@ -690,25 +546,14 @@ public static class SourceCode
         return output;
     }
 
-    //public static int GetNextLineThatsNotAComment(int start, List<string> code)
-    //{
-    //	int output = -1;
+    public static string GetSourceFile(string urlOrRelativePath)
+    {
+        var output = GetSourceFileAsync(urlOrRelativePath).Result;
+        return output;
+    }
 
-    //	if (start > -1 && code.Any()) {
-    //		for (int i = start; i < code.Count; i++) {
-    //			var line = code[i];
-
-    //			if (!String.IsNullOrWhiteSpace(line) && !line.Trim().StartsWith("//")) {
-    //				output = i;
-    //				break;
-    //			}
-    //		}
-    //	}
-
-    //	return output;
-    //}
-
-    public static async Task<string> GetSourceFileAsync(string urlOrRelativePath) {
+    public static async Task<string> GetSourceFileAsync(string urlOrRelativePath)
+    {
         string output = String.Empty;
 
         var client = new System.Net.Http.HttpClient();
@@ -734,23 +579,8 @@ public static class SourceCode
         return output;
     }
 
-    public static string GetSourceFile(string urlOrRelativePath) {
-        var output = GetSourceFileAsync(urlOrRelativePath).Result;
-        return output;
-    }
-
-    //private static string SortItem(List<string> code)
-    //{
-    //	string output = String.Empty;
-
-    //	if (code.Any()) {
-    //		output = code[0].Trim();
-    //	}
-
-    //	return output;	
-    //}
-
-    public static List<string> SplitTextIntoLines(string? input) {
+    public static List<string> SplitTextIntoLines(string? input)
+    {
         List<string> output = new List<string>();
 
         if (!String.IsNullOrWhiteSpace(input)) {
@@ -763,11 +593,8 @@ public static class SourceCode
         return output;
     }
 
-    public static string UpdateCode_InsertIntoAtBlock(string fileContents, string toInsert, List<string>? comments = null) {
-        return UpdateCode_InsertIntoAtBlock(fileContents, new List<string> { toInsert }, comments);
-    }
-
-    public static string UpdateCode_InsertIntoAtBlock(string fileContents, List<string> toInsert, List<string>? comments = null) {
+    public static string UpdateCode_InsertIntoAtBlock(string fileContents, List<string> toInsert, List<string>? comments = null)
+    {
         string output = fileContents;
 
         if (!String.IsNullOrWhiteSpace(fileContents) && toInsert.Any()) {
@@ -804,11 +631,13 @@ public static class SourceCode
         return output;
     }
 
-    public static string UpdateCode_InsertIntoAtCodeBlock(string fileContents, string toInsert, List<string>? comments = null) {
-        return UpdateCode_InsertIntoAtCodeBlock(fileContents, new List<string> { toInsert }, comments);
+    public static string UpdateCode_InsertIntoAtBlock(string fileContents, string toInsert, List<string>? comments = null)
+    {
+        return UpdateCode_InsertIntoAtBlock(fileContents, new List<string> { toInsert }, comments);
     }
 
-    public static string UpdateCode_InsertIntoAtCodeBlock(string fileContents, List<string> toInsert, List<string>? comments = null) {
+    public static string UpdateCode_InsertIntoAtCodeBlock(string fileContents, List<string> toInsert, List<string>? comments = null)
+    {
         string output = fileContents;
 
         if (!String.IsNullOrWhiteSpace(fileContents) && toInsert.Any()) {
@@ -845,11 +674,13 @@ public static class SourceCode
         return output;
     }
 
-    public static string UpdateCode_InsertIntoElement(string? identifier, string fileContents, string toInsert, List<string>? attributes = null, List<string>? comments = null) {
-        return UpdateCode_InsertIntoElement(identifier, fileContents, new List<string> { toInsert }, attributes, comments);
+    public static string UpdateCode_InsertIntoAtCodeBlock(string fileContents, string toInsert, List<string>? comments = null)
+    {
+        return UpdateCode_InsertIntoAtCodeBlock(fileContents, new List<string> { toInsert }, comments);
     }
 
-    public static string UpdateCode_InsertIntoElement(string? identifier, string fileContents, List<string> toInsert, List<string>? attributes = null, List<string>? comments = null) {
+    public static string UpdateCode_InsertIntoElement(string? identifier, string fileContents, List<string> toInsert, List<string>? attributes = null, List<string>? comments = null)
+    {
         string output = fileContents;
 
         if (!String.IsNullOrWhiteSpace(identifier) && !String.IsNullOrWhiteSpace(fileContents) && toInsert.Any()) {
@@ -901,5 +732,10 @@ public static class SourceCode
         }
 
         return output;
+    }
+
+    public static string UpdateCode_InsertIntoElement(string? identifier, string fileContents, string toInsert, List<string>? attributes = null, List<string>? comments = null)
+    {
+        return UpdateCode_InsertIntoElement(identifier, fileContents, new List<string> { toInsert }, attributes, comments);
     }
 }

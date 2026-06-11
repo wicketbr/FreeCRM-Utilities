@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace FreeCRM_Utilities;
+namespace Util;
 
 public static class SplashScreen
 {
@@ -40,50 +40,8 @@ public static class SplashScreen
         public int Top { get; set; }
     }
 
-    public static string BorderCharacters(SplashBorder? border) {
-        return border switch {
-            SplashBorder.At => "@@@@@@@@",
-            SplashBorder.Block => "▐▀▌▐▌▐▄▌",
-            SplashBorder.Dots => "···::···",
-            SplashBorder.Double => "╔═╗║║╚═╝",
-            SplashBorder.DoubleCorners => "╔─╗││╚─╝",
-            SplashBorder.None => String.Empty,
-            SplashBorder.PlusBox => "+-+||+-+",
-            SplashBorder.Shells => "########",
-            SplashBorder.Simple => ".-.||'-'",
-            SplashBorder.Single => "┌─┐││└─┘",
-            SplashBorder.Slash => "////////",
-            SplashBorder.Stars => "********",
-            SplashBorder.Waves => "~~~~~~~~",
-            _ => String.Empty
-        };
-    }
-
-    public static string ConsoleColorToHex(ConsoleColor color) {
-        System.Drawing.Color drawingColor = color switch {
-            ConsoleColor.Black => System.Drawing.Color.FromArgb(0, 0, 0),
-            ConsoleColor.DarkBlue => System.Drawing.Color.FromArgb(0, 0, 128),
-            ConsoleColor.DarkGreen => System.Drawing.Color.FromArgb(0, 128, 0),
-            ConsoleColor.DarkCyan => System.Drawing.Color.FromArgb(0, 128, 128),
-            ConsoleColor.DarkRed => System.Drawing.Color.FromArgb(128, 0, 0),
-            ConsoleColor.DarkMagenta => System.Drawing.Color.FromArgb(128, 0, 128),
-            ConsoleColor.DarkYellow => System.Drawing.Color.FromArgb(128, 128, 0),
-            ConsoleColor.Gray => System.Drawing.Color.FromArgb(192, 192, 192),
-            ConsoleColor.DarkGray => System.Drawing.Color.FromArgb(128, 128, 128),
-            ConsoleColor.Blue => System.Drawing.Color.FromArgb(0, 0, 255),
-            ConsoleColor.Green => System.Drawing.Color.FromArgb(0, 255, 0),
-            ConsoleColor.Cyan => System.Drawing.Color.FromArgb(0, 255, 255),
-            ConsoleColor.Red => System.Drawing.Color.FromArgb(255, 0, 0),
-            ConsoleColor.Magenta => System.Drawing.Color.FromArgb(255, 0, 255),
-            ConsoleColor.Yellow => System.Drawing.Color.FromArgb(255, 255, 0),
-            ConsoleColor.White => System.Drawing.Color.FromArgb(255, 255, 255),
-            _ => System.Drawing.Color.Black
-        };
-
-        return System.Drawing.ColorTranslator.ToHtml(drawingColor);
-    }
-
-    private static List<string> AddPadding(List<string> lines, SplashPadding? padding, SplashBorder? border) {
+    private static List<string> AddPadding(List<string> lines, SplashPadding? padding, SplashBorder? border)
+    {
         List<string> output = new List<string>();
 
         if (padding == null) {
@@ -131,9 +89,52 @@ public static class SplashScreen
         return output;
     }
 
-    public static void DrawSplashScreen(Splash splash) {
-        var previousBG = Console.BackgroundColor;
-        var previousFG = Console.ForegroundColor;
+    public static string BorderCharacters(SplashBorder? border) {
+        return border switch {
+            SplashBorder.At => "@@@@@@@@",
+            SplashBorder.Block => "▐▀▌▐▌▐▄▌",
+            SplashBorder.Dots => "···::···",
+            SplashBorder.Double => "╔═╗║║╚═╝",
+            SplashBorder.DoubleCorners => "╔─╗││╚─╝",
+            SplashBorder.None => String.Empty,
+            SplashBorder.PlusBox => "+-+||+-+",
+            SplashBorder.Shells => "########",
+            SplashBorder.Simple => ".-.||'-'",
+            SplashBorder.Single => "┌─┐││└─┘",
+            SplashBorder.Slash => "////////",
+            SplashBorder.Stars => "********",
+            SplashBorder.Waves => "~~~~~~~~",
+            _ => String.Empty
+        };
+    }
+
+    public static string ConsoleColorToHex(ConsoleColor color)
+    {
+        System.Drawing.Color drawingColor = color switch {
+            ConsoleColor.Black => System.Drawing.Color.FromArgb(0, 0, 0),
+            ConsoleColor.DarkBlue => System.Drawing.Color.FromArgb(0, 0, 128),
+            ConsoleColor.DarkGreen => System.Drawing.Color.FromArgb(0, 128, 0),
+            ConsoleColor.DarkCyan => System.Drawing.Color.FromArgb(0, 128, 128),
+            ConsoleColor.DarkRed => System.Drawing.Color.FromArgb(128, 0, 0),
+            ConsoleColor.DarkMagenta => System.Drawing.Color.FromArgb(128, 0, 128),
+            ConsoleColor.DarkYellow => System.Drawing.Color.FromArgb(128, 128, 0),
+            ConsoleColor.Gray => System.Drawing.Color.FromArgb(192, 192, 192),
+            ConsoleColor.DarkGray => System.Drawing.Color.FromArgb(128, 128, 128),
+            ConsoleColor.Blue => System.Drawing.Color.FromArgb(0, 0, 255),
+            ConsoleColor.Green => System.Drawing.Color.FromArgb(0, 255, 0),
+            ConsoleColor.Cyan => System.Drawing.Color.FromArgb(0, 255, 255),
+            ConsoleColor.Red => System.Drawing.Color.FromArgb(255, 0, 0),
+            ConsoleColor.Magenta => System.Drawing.Color.FromArgb(255, 0, 255),
+            ConsoleColor.Yellow => System.Drawing.Color.FromArgb(255, 255, 0),
+            ConsoleColor.White => System.Drawing.Color.FromArgb(255, 255, 255),
+            _ => System.Drawing.Color.Black
+        };
+
+        return System.Drawing.ColorTranslator.ToHtml(drawingColor);
+    }
+
+    public static void DrawSplashScreen(Splash splash)
+    {
         Console.OutputEncoding = Encoding.UTF8;
 
         string htmlStyle = "font-family: monospace;";
@@ -170,20 +171,16 @@ public static class SplashScreen
         }
 
         foreach (var line in lines) {
-            // For debugging in LINQPad using the Util.WithStyle method
-            // as the regular Console.WriteLine in LINQPad does not support
-            // color styles.
-
-            //Console.WriteLine(line);
-            Console.WriteLine(Util.WithStyle(line, htmlStyle));
+            Console.WriteLine(line);
         }
 
         // Restore the colors
-        Console.BackgroundColor = previousBG;
-        Console.ForegroundColor = previousFG;
+        Console.BackgroundColor = Utils.DefaultConsoleBackground;
+        Console.ForegroundColor = Utils.DefaultConsoleForeground;
     }
 
-    private static List<string> PadStringsToLength(List<string> strings, int length) {
+    private static List<string> PadStringsToLength(List<string> strings, int length)
+    {
         List<string> output = new List<string>();
 
         if (strings.Any()) {
