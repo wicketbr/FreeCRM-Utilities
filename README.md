@@ -36,8 +36,3 @@ or passed as command-line arguments from the console.
 Example:
   --Rename:MyApp --Remove:all --Upgrade:"C:\path to\old app"
 ```
-
-This utility is available as an open source project from my github repo
-at https://github.com/wicketbr/FreeCRM-Utilities.
-If you wish to contribute feel free to add a pull request or report
-an issue on github.
