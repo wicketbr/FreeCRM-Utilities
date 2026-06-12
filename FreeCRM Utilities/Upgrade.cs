@@ -2120,6 +2120,81 @@ public static class UpgradeTools
                 },
             },
             new RequiredElement {
+                RelativePath = @"CRM.Client\Shared\AppComponents\PluginPrompts.App.razor",
+                Items = new List<RequiredElementItem> {
+                    new RequiredElementItem {
+                        Item = "[Parameter] public Delegate? AppPromptUpdated { get; set; }",
+                        Target = "BlazorParameter",
+                        Parent = "@code{",
+                    },
+                    new RequiredElementItem {
+                        Item = "[Parameter] public EventCallback<PluginExecuteResult> ButtonClickHandler { get; set; }",
+                        Target = "BlazorParameter",
+                        Parent = "@code{",
+                    },
+                    new RequiredElementItem {
+                        Item = "[Parameter] public string? Class { get; set; }",
+                        Target = "BlazorParameter",
+                        Parent = "@code{",
+                    },
+                    new RequiredElementItem {
+                        Item = "[Parameter] public string? DivClass { get; set; }",
+                        Target = "BlazorParameter",
+                        Parent = "@code{",
+                    },
+                    new RequiredElementItem {
+                        Item = "[Parameter] public bool HighlightMissingRequiredFields { get; set; }",
+                        Target = "BlazorParameter",
+                        Parent = "@code{",
+                    },
+                    new RequiredElementItem {
+                        Item = "[Parameter] public Plugin Plugin { get; set; }",
+                        Target = "BlazorParameter",
+                        Parent = "@code{",
+                    },
+                    new RequiredElementItem {
+                        Item = "[Parameter] public PluginPrompt Prompt { get; set; }",
+                        Target = "BlazorParameter",
+                        Parent = "@code{",
+                    },
+                    new RequiredElementItem {
+                        Item = "[Parameter] public List<PluginPromptValue> PromptValues { get; set; }",
+                        Target = "BlazorParameter",
+                        Parent = "@code{",
+                    },
+                    new RequiredElementItem {
+                        Item = "[Parameter] public Delegate? OnValuesChange { get; set; }",
+                        Target = "BlazorParameter",
+                        Parent = "@code{",
+                    },
+                    new RequiredElementItem {
+                        Item = "[Parameter] public bool OverrideComponent { get; set; }",
+                        Target = "BlazorParameter",
+                        Parent = "@code{",
+                    },
+                    new RequiredElementItem {
+                        Item = "[Parameter] public PluginPromptType? RenderPromptType { get; set; }",
+                        Target = "BlazorParameter",
+                        Parent = "@code{",
+                    },
+                    new RequiredElementItem {
+                        Item = "protected string ElementId {",
+                        Target = "PartialClassMethod",
+                        Parent = "@code{",
+                    },
+                    new RequiredElementItem {
+                        Item = "public bool OverridePluginPromptType(PluginPromptType promptType)",
+                        Target = "PartialClassMethod",
+                        Parent = "@code{",
+                    },
+                    new RequiredElementItem {
+                        Item = "protected void ValueChanged(ChangeEventArgs e, int index = 0)",
+                        Target = "PartialClassMethod",
+                        Parent = "@code{",
+                    },
+                },
+            },
+            new RequiredElement {
                 RelativePath = @"CRM.Client\Shared\AppComponents\Settings.App.razor",
                 Items = new List<RequiredElementItem> {
                     new RequiredElementItem {
@@ -2149,6 +2224,11 @@ public static class UpgradeTools
                     },
                     new RequiredElementItem {
                         Item = "public DataObjects.ModuleAction Save(DataObjects.Tenant tenant)",
+                        Target = "PartialClassMethod",
+                        Parent = "@code{",
+                    },
+                    new RequiredElementItem {
+                        Item = "public bool OverridePluginPromptType(PluginPromptType promptType)",
                         Target = "PartialClassMethod",
                         Parent = "@code{",
                     },
@@ -2289,6 +2369,11 @@ public static class UpgradeTools
                     },
                     new RequiredElementItem {
                         Item = "private async Task<DataObjects.BooleanResponse> DeleteRecordsApp(object Rec, DataObjects.User? CurrentUser = null)",
+                        Target = "PartialClassMethod",
+                        Parent = "public partial class DataAccess",
+                    },
+                    new RequiredElementItem {
+                        Item = "private object[]? ExecutePluginApp(PluginExecuteRequest request, DataObjects.User? CurrentUser = null)",
                         Target = "PartialClassMethod",
                         Parent = "public partial class DataAccess",
                     },

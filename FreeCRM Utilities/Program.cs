@@ -4,8 +4,8 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        string version = "1.0.0";
-        var released = DateOnly.FromDateTime(Convert.ToDateTime("6/11/2026"));
+        string version = "1.0.1";
+        var released = DateOnly.FromDateTime(Convert.ToDateTime("6/12/2026"));
 
         // Sample of command-line arguments
         // --Rename:FormsToImaging --HideLogs --Remove:all --ShowLogs --Upgrade:"PATH"
