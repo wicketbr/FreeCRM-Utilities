@@ -1208,7 +1208,7 @@ public static class UpgradeTools
             var sourceCode = SourceCode.GetAllSourceCode(_filePath, true);
 
             if (!String.IsNullOrEmpty(sourceCode)) {
-                // Find all language items in the source code. They will either be inside GetLanguageItem("TAG", Helpers.Text("TAG", or <Language Tag="TAG"
+                // Find all language items in the source code. They will either be inside GetLanguageItem("TAG", Text("TAG", or <Language Tag="TAG"
                 // So find the tag wrapped in quotes.
                 List<string> languageItemsInSource = new List<string>();
                 foreach (var item in newLanguageItems) {
@@ -1229,7 +1229,7 @@ public static class UpgradeTools
                     html.AppendLine("<h3>Unused Language Items</h3>");
                     html.AppendLine("<p>The following tags are defined in your language settings, but are no longer in use:</p>");
                     html.AppendLine("<ul>");
-                    foreach (var tag in tagsNoLongerInUse) {
+                    foreach (var tag in tagsNoLongerInUse.OrderBy(x => x)) {
                         Utils.ConsoleLog(tag);
                         html.AppendLine("<li>" + tag + "</li>");
                     }
@@ -1254,7 +1254,7 @@ public static class UpgradeTools
                     }
                 }
 
-                List<string> tagsInHelpersText = Regex.Matches(sourceCode, @"Helpers\.Text\(""([^""]+)""")
+                List<string> tagsInHelpersText = Regex.Matches(sourceCode, @"Text\(""([^""]+)""")
                     .Cast<Match>()
                     .Select(m => m.Groups[1].Value)
                     .ToList();
@@ -1302,7 +1302,7 @@ public static class UpgradeTools
                         html.AppendLine("<p>" + tagsNotInLanguageMessage + "</p>");
                         html.AppendLine("<ul>");
 
-                        foreach (var tag in tagsNotInLanguageItems) {
+                        foreach (var tag in tagsNotInLanguageItems.OrderBy(x => x)) {
                             Utils.ConsoleLog(tag);
                             html.AppendLine("<li>" + tag + "</li>");
                         }
@@ -2194,6 +2194,42 @@ public static class UpgradeTools
                     },
                 },
             },
+            new RequiredElement { 
+                RelativePath = @"CRM.Client\Shared\AppComponents\Profile.App.razor",
+                Items = new List<RequiredElementItem> {
+                    new RequiredElementItem {
+                        Item = "[Parameter] public string Area {",
+                        Target = "BlazorParameter",
+                        Parent = "@code{",
+                    },
+                    new RequiredElementItem {
+                        Item = "[Parameter] public bool OverridePage {",
+                        Target = "BlazorParameter",
+                        Parent = "@code{",
+                    },
+                    new RequiredElementItem {
+                        Item = "[Parameter] public DataObjects.User Value {",
+                        Target = "BlazorParameter",
+                        Parent = "@code{",
+                    },
+                    new RequiredElementItem {
+                        Item = "[Parameter] public EventCallback<DataObjects.User> ValueChanged {",
+                        Target = "BlazorParameter",
+                        Parent = "@code{",
+                    },
+                    new RequiredElementItem {
+                        Item = "public DataObjects.ModuleAction Save(DataObjects.Tag tag)",
+                        Target = "PartialClassMethod",
+                        Parent = "@code{",
+                    },
+                    new RequiredElementItem {
+                        Item = "protected void ValueHasChanged()",
+                        Target = "PartialClassMethod",
+                        Parent = "@code{",
+                    },
+                },
+            },
+
             new RequiredElement {
                 RelativePath = @"CRM.Client\Shared\AppComponents\Settings.App.razor",
                 Items = new List<RequiredElementItem> {
