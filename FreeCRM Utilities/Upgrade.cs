@@ -2207,6 +2207,11 @@ public static class UpgradeTools
                         Target = "BlazorParameter",
                         Parent = "@code{",
                     },
+                    new RequiredElementItem { 
+                        Item = "[Parameter] public bool ShowSaveButton {",
+                        Target = "BlazorParameter",
+                        Parent = "@code{",
+                    },
                     new RequiredElementItem {
                         Item = "[Parameter] public DataObjects.User Value {",
                         Target = "BlazorParameter",
