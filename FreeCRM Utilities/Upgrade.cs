@@ -1771,6 +1771,12 @@ public static class UpgradeTools
                         Parent = "public static partial class Helpers",
                     },
                     new RequiredElementItem {
+                        Item = "private static void ForceModelUpdatesApp()",
+                        Module = "Tags",
+                        Target = "PartialClassMethod",
+                        Parent = "public static partial class Helpers",
+                    },
+                    new RequiredElementItem {
                         Item = "private static List<string> GetDeletedRecordTypesApp()",
                         Target = "PartialClassMethod",
                         Parent = "public static partial class Helpers",
