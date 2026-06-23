@@ -1771,6 +1771,11 @@ public static class UpgradeTools
                         Parent = "public static partial class Helpers",
                     },
                     new RequiredElementItem {
+                        Item = "public static void DialogClosedApp()",
+                        Target = "PartialClassMethod",
+                        Parent = "public static partial class Helpers",
+                    },
+                    new RequiredElementItem {
                         Item = "private static void ForceModelUpdatesApp()",
                         Module = "Tags",
                         Target = "PartialClassMethod",
@@ -1788,6 +1793,11 @@ public static class UpgradeTools
                     },
                     new RequiredElementItem {
                         Item = "public static string GetDeletedRecordsLanguageTagForAppType(string type)",
+                        Target = "PartialClassMethod",
+                        Parent = "public static partial class Helpers",
+                    },
+                    new RequiredElementItem {
+                        Item = "public static void LocationChangedApp()",
                         Target = "PartialClassMethod",
                         Parent = "public static partial class Helpers",
                     },
