@@ -2485,6 +2485,11 @@ public static class UpgradeTools
                         Parent = "public partial class DataAccess",
                     },
                     new RequiredElementItem {
+                        Item = "private void SeedTestDataApp()",
+                        Target = "PartialClassMethod",
+                        Parent = "public partial class DataAccess",
+                    },
+                    new RequiredElementItem {
                         Item = "private IQueryable<EFModels.EFModels.User>? SortUsersApp(IQueryable<EFModels.EFModels.User>? recs, string SortBy, bool Ascending)",
                         Target = "PartialClassMethod",
                         Parent = "public partial class DataAccess",
