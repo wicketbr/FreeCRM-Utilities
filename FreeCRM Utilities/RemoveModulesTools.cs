@@ -162,6 +162,18 @@ public static class RemoveModulesTools
                             baseName + @".Client\Pages\Settings\Tags",
                         },
                     },
+
+                    new Module {
+                        Name = "Workflows",
+                        FilesToRemove = new List<string> {
+                            baseName + @".Client\Shared\WorkflowEditor.razor",
+                            baseName + @".Client\Shared\WorkflowViewer.razor",
+                            baseName + @".Client\WorkflowEngine.cs",
+                            baseName + @".DataObjects\DataObjects.Workflows.cs",
+                            baseName + @"",
+                            baseName + @"",
+                        },
+                    }
                 };
         }
     }
