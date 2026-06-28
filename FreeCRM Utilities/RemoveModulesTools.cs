@@ -169,9 +169,8 @@ public static class RemoveModulesTools
                             baseName + @".Client\Shared\WorkflowEditor.razor",
                             baseName + @".Client\Shared\WorkflowViewer.razor",
                             baseName + @".Client\WorkflowEngine.cs",
+                            baseName + @".Client\Pages\TestPages\Workflows.razor",
                             baseName + @".DataObjects\DataObjects.Workflows.cs",
-                            baseName + @"",
-                            baseName + @"",
                         },
                     }
                 };
@@ -331,7 +330,7 @@ public static class RemoveModulesTools
             var allFiles = System.IO.Directory.GetFiles(_filePath, "*.*", SearchOption.AllDirectories);
             foreach (var file in allFiles) {
                 var ext = System.IO.Path.GetExtension(file).ToLower();
-                if (ext == ".cs" || ext == ".razor") {
+                if (ext == ".cs" || ext == ".razor" || ext == ".css") {
                     var fileContent = System.IO.File.ReadAllText(file);
                     if (fileContent.Contains("{{ModuleItemStart:" + module + "}}", StringComparison.InvariantCultureIgnoreCase)) {
                         var fileLines = System.IO.File.ReadAllLines(file);
